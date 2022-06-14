@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+	<script src="../dist/mapbox-gl-shade-layer.umd.min.js"></script>
+	<style>
+		body {
+			padding: 0px;
+			margin: 0px;
+		}
+
+		#mapid {
+			height: 100vh;
+		}
+
+		.mapbox-control-time {
+			padding-left: 40px;
+		}
+	</style>
+	<title>Shade Map Mapbox example</title>
+</head>
+
+<body>
+	<div id="mapid">
+		<div class="mapboxgl-control-container" style="z-index: 2000; pointer-events: auto;">
+			<div class="mapboxgl-ctrl-top-left">
+				<div class="mapbox-control-time" style="pointer-events: auto;">
+					<button id="decrement">-1 hour</button>
+					<button id="increment">+1 hour</button>
+					<button id="play">Play</button>
+					<button id="stop">Stop</button>
+					<button>
+						<a href="https://shademap.app/about" target="_blank">Get API key</a>
+					</button>
+					<span id="loader" style="background-color: #eee;padding: 3px;"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		/* Mapbox setup */
+		mapboxgl.accessToken = 'pk.eyJ1IjoidHBwaW90cm93c2tpIiwiYSI6ImNsNGVpdzMxYzAzenUzb28zYXZ4MXdlc2EifQ.M4IHx7SY0Wv5Zt6xzvKeBQ';
+		const map = new mapboxgl.Map({
+			container: 'mapid',
+			style: 'mapbox://styles/mapbox/streets-v11',
+			center: { lng: -122.18578164139899, lat: 47.694878957368815 },
+			zoom: 8, // starting zoom
+		});
+		/* End Mapbox setup */
+
+		/* ShadeMap setup */
+		const loaderEl = document.getElementById('loader');
+		let now = new Date(1633358583454);
+		let shadeMap;
+		map.on('load', () => {
+			shadeMap = new ShadeMap({
+				date: now,
+				buildings: true,
+				color: '#01112f',
+				opacity: 0.7,
+				apiKey: "1e4a17816006654b9343b41818bae762cf33a5c393a92f0c919753f728a616a8",
+				debug: (msg) => { console.log(new Date().toISOString(), msg) }
+			}).addTo(map);
+
+			shadeMap.on('tileloaded', (loadedTiles, totalTiles) => {
+				loaderEl.innerText = `Loading: ${(loadedTiles / totalTiles * 100).toFixed(0)}%`;
+			});
+		});
+		/* End ShadeMap setup */
+
+		/* Controls setup */
+		let intervalTimer;
+
+		const increment = document.getElementById('increment');
+		const decrement = document.getElementById('decrement');
+		const play = document.getElementById('play');
+		const stop = document.getElementById('stop');
+
+		increment.addEventListener('click', () => {
+
+			now = new Date(now.getTime() + 3600000);
+			shadeMap && shadeMap.setDate(now);
+		}, false);
+
+		decrement.addEventListener('click', () => {
+			now = new Date(now.getTime() - 3600000);
+			shadeMap && shadeMap.setDate(now);
+		}, false);
+
+		play.addEventListener('click', () => {
+			intervalTimer = setInterval(() => {
+				now = new Date(now.getTime() + 60000);
+				shadeMap && shadeMap.setDate(now);
+			}, 100);
+		});
+
+		stop.addEventListener('click', () => {
+			clearInterval(intervalTimer);
+		})
+		/* End controls setup */
+	</script>
+</body>
+
+</html>

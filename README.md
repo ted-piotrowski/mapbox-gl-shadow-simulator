@@ -2,6 +2,8 @@
 
 ![Mapbox Shade Layer demo](/demo.gif)
 
+[Demo](https://ted-piotrowski.github.io/mapbox-gl-shade-layer/examples/map.html)
+
 ## Download
 
 [unpkg CDN](https://unpkg.com/mapbox-gl-shade-layer/dist/mapbox-gl-shade-layer.umd.min.js)
