@@ -20,28 +20,35 @@ Using npm:
 
 ## Usage
 
+In a browser:
+
 ```javascript
-const map = new mapboxgl.Map({
-  // mapboxgl Map options
-  // ... 
-});
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
+<script src="mapbox-gl-shade-layer.umd.min.js"></script>
+<script>
+  const map = new mapboxgl.Map({
+    // mapboxgl Map options
+    // ... 
+  });
 
-map.on('load', () => {
-  const shadeMap = new ShadeMap({
-    date: new Date(), // display shadows for current date
-    apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
-  }).addTo(map);
+  map.on('load', () => {
+    const shadeMap = new ShadeMap({
+      date: new Date(), // display shadows for current date
+      apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
+    }).addTo(map);
 
-  // advance shade by 1 hour
-  shadeMap.setDate(new Date(Date.now() + 1000 * 60 * 60)); 
-});
+    // advance shade by 1 hour
+    shadeMap.setDate(new Date(Date.now() + 1000 * 60 * 60)); 
+  });
+</script>
 ```
 
 Using Node.js:
 
 ```javascript
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-import ShadeLayer from 'mapbox-gl-shade-layer';
+import ShadeMap from 'mapbox-gl-shade-layer';
 
 const map = new mapboxgl.Map({
   // mapboxgl Map options
