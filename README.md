@@ -1,5 +1,7 @@
 # mapbox-gl-shade-layer
 
+![Mapbox Shade Layer demo](/demo.gif)
+
 ## Download
 
 [unpkg CDN](https://unpkg.com/mapbox-gl-shade-layer/dist/mapbox-gl-shade-layer.umd.min.js)
