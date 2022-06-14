@@ -25,7 +25,7 @@ const map = new mapboxgl.Map({
 map.on('load', () => {
   const shadeMap = new ShadeMap({
     date: new Date(), // display shadows for current date
-    apiKey: "XXX",    // obtain from https://shademap.app/about/
+    apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
   }).addTo(map);
 
   // advance shade by 1 hour
@@ -47,7 +47,7 @@ const map = new mapboxgl.Map({
 map.on('load', () => {
   const shadeMap = new ShadeMap({
     date: new Date(), // display shadows for current date
-    apiKey: "XXX",    // obtain from https://shademap.app/about/
+    apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
   }).addTo(map);
 
   // advance shade by 1 hour
@@ -58,7 +58,7 @@ map.on('load', () => {
 ### Constructor options
 
 Property name | Type | Default value | Comment
---- | :---: | :---:
+:--- | :--- | :--- | :---
 `date` | `Date` | `Date.now()` |
 `color` | `String` | `#000` | 3 or 6 digit hexadecimal number
 `opacity` | `Number` | `0.3`
