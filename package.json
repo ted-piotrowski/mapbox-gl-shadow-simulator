@@ -1,28 +1,28 @@
 {
   "name": "mapbox-gl-shade-layer",
-    "version": "0.0.2",
-    "description": "Display terrain and structure shadows cast by the sun in a custom style layer",
-    "main": "dist/mapbox-gl-shade-layer.umd.min.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1",
-      "postpublish" : "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags"
-    },
-    "repository": {
-      "type": "git",
-      "url": "git+https://github.com/ted-piotrowski/mapbox-gl-shade-layer.git"
-    },
-    "keywords": [
-      "mapbox",
+  "version": "0.11.1",
+  "description": "Display terrain and structure shadows cast by the sun in a custom style layer",
+  "main": "dist/mapbox-gl-shade-layer.umd.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ted-piotrowski/mapbox-gl-shade-layer.git"
+  },
+  "keywords": [
+    "mapbox",
     "mapbox-gl",
     "maplibre",
     "maplibre-gl",
     "shade",
     "layer"
-    ],
-    "author": "Ted Piotrowski",
-    "license": "UNLICENSED",
-    "bugs": {
-      "url": "https://github.com/ted-piotrowski/mapbox-gl-shade-layer/issues"
-    },
-    "homepage": "https://github.com/ted-piotrowski/mapbox-gl-shade-layer#readme"
+  ],
+  "author": "Ted Piotrowski",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/ted-piotrowski/mapbox-gl-shade-layer/issues"
+  },
+  "homepage": "https://github.com/ted-piotrowski/mapbox-gl-shade-layer#readme"
 }
