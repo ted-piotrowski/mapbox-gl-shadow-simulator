@@ -24,5 +24,8 @@
   "bugs": {
     "url": "https://github.com/ted-piotrowski/mapbox-gl-shade-layer/issues"
   },
-  "homepage": "https://github.com/ted-piotrowski/mapbox-gl-shade-layer#readme"
+  "homepage": "https://github.com/ted-piotrowski/mapbox-gl-shade-layer#readme",
+  "dependencies": {
+    "suncalc": "^1.9.0"
+  }
 }
