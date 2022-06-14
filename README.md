@@ -40,6 +40,10 @@ In a browser:
 
     // advance shade by 1 hour
     shadeMap.setDate(new Date(Date.now() + 1000 * 60 * 60)); 
+
+    // sometime later...
+    // ...remove layer
+    shadeMap.remove();
   });
 </script>
 ```
@@ -63,6 +67,10 @@ map.on('load', () => {
 
   // advance shade by 1 hour
   shadeMap.setDate(new Date(Date.now() + 1000 * 60 * 60)); 
+
+  // sometime later
+  // ...remove layer
+  shadeMap.remove();
 });
 ```
 
