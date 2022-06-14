@@ -34,7 +34,7 @@ In a browser:
 
   map.on('load', () => {
     const shadeMap = new ShadeMap({
-      date: new Date(), // display shadows for current date
+      date: new Date(),    // display shadows for current date
       apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
     }).addTo(map);
 
@@ -57,7 +57,7 @@ const map = new mapboxgl.Map({
 
 map.on('load', () => {
   const shadeMap = new ShadeMap({
-    date: new Date(), // display shadows for current date
+    date: new Date(),    // display shadows for current date
     apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
   }).addTo(map);
 
