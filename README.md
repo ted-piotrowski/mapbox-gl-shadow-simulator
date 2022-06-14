@@ -22,7 +22,7 @@ Using npm:
 
 In a browser:
 
-```javascript
+```html
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
 <script src="mapbox-gl-shade-layer.umd.min.js"></script>
@@ -70,7 +70,7 @@ map.on('load', () => {
 
 Property name | Type | Default value | Comment
 :--- | :--- | :--- | :---
-`date` | `Date` | `Date.now()` |
+`date` | `Date` | `new Date()` |
 `color` | `String` | `#000` | 3 or 6 digit hexadecimal number
 `opacity` | `Number` | `0.3`
 `maxZoom` | `Number` | `15` | Max zoom for custom DEM tile source
