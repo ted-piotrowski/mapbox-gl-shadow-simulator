@@ -16,7 +16,7 @@ In a browser:
 
 Using npm:
 
-`npm i suncalc mapbox-gl-shade-layer --save`
+`npm i mapbox-gl-shade-layer --save`
 
 ## Usage
 
