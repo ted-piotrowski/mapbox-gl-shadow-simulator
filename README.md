@@ -2,7 +2,7 @@
 
 ![Mapbox Shade Layer demo](/demo.gif)
 
-[Demo](https://ted-piotrowski.github.io/mapbox-gl-shade-layer/examples/map.html)
+[Live Demo](https://ted-piotrowski.github.io/mapbox-gl-shade-layer/examples/map.html)
 
 ## Download
 
