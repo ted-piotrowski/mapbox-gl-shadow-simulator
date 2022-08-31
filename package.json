@@ -1,11 +1,10 @@
 {
   "name": "mapbox-gl-shade-layer",
-  "version": "0.11.6",
+  "version": "0.12.0",
   "description": "Display terrain and structure shadows cast by the sun in a custom style layer",
   "main": "dist/mapbox-gl-shade-layer.umd.min.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postpublish": "PACKAGE_VERSION=$(cat package.json | grep \\\"version\\\" | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git tag v$PACKAGE_VERSION && git push --tags"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
