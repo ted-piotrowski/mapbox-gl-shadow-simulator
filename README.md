@@ -109,6 +109,7 @@ Property name | Type | Default value | Comment
 `tileSize` | `Number` | `256` | Tile size for custom DEM tile source
 `sourceUrl` | `Function` | `TODO:` | Returns url of DEM tile for given `(x, y, z)` coordinate
 `getElevation` | `Function` | `TODO:` | Returns elevation in meters for each pixel of DEM tile
+`getFeatures` | `Function` | `TODO:` | Returns GeoJSON of objects, such as buildings, to display on the map
 `apiKey` | `String` | `''` | See [https://shademap.app/about/](https://shademap.app/about/)
 
 ### Available functions
