@@ -1,5 +1,7 @@
 # mapbox-gl-shade-layer
 
+Terrain and object shade simulation for Mapbox JS and Maplibre JS. Display shadows on a map for any date and time of year.
+
 ![Mapbox Shade Layer demo](/demo.gif)
 
 [Live Demo](https://ted-piotrowski.github.io/mapbox-gl-shade-layer/examples/map.html)
