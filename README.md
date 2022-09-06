@@ -35,6 +35,18 @@ In a browser:
   map.on('load', () => {
     const shadeMap = new ShadeMap({
       date: new Date(),    // display shadows for current date
+      color: '#01112f',    // shade color
+      opacity: 0.7,        // opacity of shade color
+      tileSize: 256,       // DEM tile size
+      maxZoom: 15,         // Maximum zoom of DEM tile set
+      sourceUrl: ({ x, y, z }) => {
+        // return DEM tile url for give x,y,z coordinates
+        return `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`
+      },
+      getElevation: ({ r, g, b }) => {
+        // return elevation in meters for a give DEM tile pixel
+        return (r * 256 + g + b / 256) - 32768
+      },
       apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
     }).addTo(map);
 
@@ -62,6 +74,18 @@ const map = new mapboxgl.Map({
 map.on('load', () => {
   const shadeMap = new ShadeMap({
     date: new Date(),    // display shadows for current date
+    color: '#01112f',    // shade color
+    opacity: 0.7,        // opacity of shade color
+    tileSize: 256,       // DEM tile size
+    maxZoom: 15,         // Maximum zoom of DEM tile set
+    sourceUrl: ({ x, y, z }) => {
+      // return DEM tile url for give x,y,z coordinates
+      return `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`
+    },
+    getElevation: ({ r, g, b }) => {
+      // return elevation in meters for a give DEM tile pixel
+      return (r * 256 + g + b / 256) - 32768
+    },
     apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
   }).addTo(map);
 
@@ -83,6 +107,8 @@ Property name | Type | Default value | Comment
 `opacity` | `Number` | `0.3`
 `maxZoom` | `Number` | `15` | Max zoom for custom DEM tile source
 `tileSize` | `Number` | `256` | Tile size for custom DEM tile source
+`sourceUrl` | `Function` | `TODO:` | Returns url of DEM tile for given `(x, y, z)` coordinate
+`getElevation` | `Function` | `TODO:` | Returns elevation in meters for each pixel of DEM tile
 `apiKey` | `String` | `''` | See [https://shademap.app/about/](https://shademap.app/about/)
 
 ### Available functions
