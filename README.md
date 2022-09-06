@@ -40,11 +40,11 @@ In a browser:
       tileSize: 256,       // DEM tile size
       maxZoom: 15,         // Maximum zoom of DEM tile set
       sourceUrl: ({ x, y, z }) => {
-        // return DEM tile url for give x,y,z coordinates
+        // return DEM tile url for given x,y,z coordinates
         return `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`
       },
       getElevation: ({ r, g, b }) => {
-        // return elevation in meters for a give DEM tile pixel
+        // return elevation in meters for a given DEM tile pixel
         return (r * 256 + g + b / 256) - 32768
       },
       apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
@@ -79,11 +79,11 @@ map.on('load', () => {
     tileSize: 256,       // DEM tile size
     maxZoom: 15,         // Maximum zoom of DEM tile set
     sourceUrl: ({ x, y, z }) => {
-      // return DEM tile url for give x,y,z coordinates
+      // return DEM tile url for given x,y,z coordinates
       return `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`
     },
     getElevation: ({ r, g, b }) => {
-      // return elevation in meters for a give DEM tile pixel
+      // return elevation in meters for a given DEM tile pixel
       return (r * 256 + g + b / 256) - 32768
     },
     apiKey: "XXXXXX",    // obtain from https://shademap.app/about/
