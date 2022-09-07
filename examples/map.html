@@ -66,7 +66,7 @@
 				tileSize: 256,
 				maxZoom: 15,
 				sourceUrl: ({ x, y, z }) => `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`,
-				getElevation: ({ r, g, b }) => (r * 256 + g + b / 256) - 32768,
+				getElevation: ({ r, g, b, a }) => (r * 256 + g + b / 256) - 32768,
 				getFeatures: (map) => {
 					const buildingData = map.querySourceFeatures('composite', { sourceLayer: 'building' }).filter((feature) => {
 						return feature.properties && feature.properties.underground !== "true" && feature.properties.render_height

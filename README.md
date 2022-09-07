@@ -45,7 +45,7 @@ In a browser:
         // return DEM tile url for given x,y,z coordinates
         return `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`
       },
-      getElevation: ({ r, g, b }) => {
+      getElevation: ({ r, g, b, a }) => {
         // return elevation in meters for a given DEM tile pixel
         return (r * 256 + g + b / 256) - 32768
       },
@@ -84,7 +84,7 @@ map.on('load', () => {
       // return DEM tile url for given x,y,z coordinates
       return `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`
     },
-    getElevation: ({ r, g, b }) => {
+    getElevation: ({ r, g, b, a }) => {
       // return elevation in meters for a given DEM tile pixel
       return (r * 256 + g + b / 256) - 32768
     },
