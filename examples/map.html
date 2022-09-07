@@ -60,20 +60,22 @@
 		let shadeMap;
 		map.on('load', () => {
 			shadeMap = new ShadeMap({
+				apiKey: "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRwcGlvdHJvd3NraUBzaGFkZW1hcC5hcHAiLCJjcmVhdGVkIjoxNjYyNDkzMDY2Nzk0LCJpYXQiOjE2NjI0OTMwNjZ9.ovCrLTYsdKFTF6TW3DuODxCaAtGQ3qhcmqj3DWcol5g",
 				date: now,
 				color: '#01112f',
 				opacity: 0.7,
-				tileSize: 256,
-				maxZoom: 15,
-				sourceUrl: ({ x, y, z }) => `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`,
-				getElevation: ({ r, g, b, a }) => (r * 256 + g + b / 256) - 32768,
+				terrainSource: {
+					maxZoom: 15,
+					tileSize: 256,
+					getSourceUrl: ({ x, y, z }) => `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`,
+					getElevation: ({ r, g, b, a }) => (r * 256 + g + b / 256) - 32768,
+				},
 				getFeatures: (map) => {
 					const buildingData = map.querySourceFeatures('composite', { sourceLayer: 'building' }).filter((feature) => {
 						return feature.properties && feature.properties.underground !== "true" && feature.properties.render_height
 					});
 					return buildingData;
 				},
-				apiKey: "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRwcGlvdHJvd3NraUBzaGFkZW1hcC5hcHAiLCJjcmVhdGVkIjoxNjYyNDkzMDY2Nzk0LCJpYXQiOjE2NjI0OTMwNjZ9.ovCrLTYsdKFTF6TW3DuODxCaAtGQ3qhcmqj3DWcol5g",
 				debug: (msg) => { console.log(new Date().toISOString(), msg) }
 			}).addTo(map);
 
