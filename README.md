@@ -1,24 +1,24 @@
-# mapbox-gl-shade-layer
+# mapbox-gl-shadow-simulator
 
 Terrain, building and object shadow simulator for Mapbox JS and Maplibre JS. Display sunlight and shadow on a map for any date and time of year.
 
-![Mapbox Shade Layer demo](/demo.gif)
+![Mapbox GL Shadow Simulator demo](/demo.gif)
 
-[Live Demo](https://ted-piotrowski.github.io/mapbox-gl-shade-layer/examples/map.html)
+[Live Demo](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
 
 ## Download
 
-[unpkg CDN](https://unpkg.com/mapbox-gl-shade-layer/dist/mapbox-gl-shade-layer.umd.min.js)
+[unpkg CDN](https://unpkg.com/mapbox-gl-shadow-simulator/dist/mapbox-gl-shadow-simulator.umd.min.js)
 
 ## Installation
 
 In a browser:
 
-`<script src="https://unpkg.com/mapbox-gl-shade-layer/dist/mapbox-gl-shade-layer.umd.min.js"></script>`
+`<script src="https://unpkg.com/mapbox-gl-shadow-simulator/dist/mapbox-gl-shadow-simulator.umd.min.js"></script>`
 
 Using npm:
 
-`npm i mapbox-gl-shade-layer --save`
+`npm i mapbox-gl-shadow-simulator --save`
 
 ## Usage
 
@@ -27,7 +27,7 @@ In a browser:
 ```html
 <script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
-<script src="https://unpkg.com/mapbox-gl-shade-layer/dist/mapbox-gl-shade-layer.umd.min.js"></script>
+<script src="https://unpkg.com/mapbox-gl-shadow-simulator/dist/mapbox-gl-shadow-simulator.umd.min.js"></script>
 <script>
   const map = new mapboxgl.Map({
     // mapboxgl Map options
@@ -68,7 +68,7 @@ Using Node.js:
 
 ```javascript
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl';
-import ShadeMap from 'mapbox-gl-shade-layer';
+import ShadeMap from 'mapbox-gl-shadow-simulator';
 
 const map = new mapboxgl.Map({
   // mapboxgl Map options
