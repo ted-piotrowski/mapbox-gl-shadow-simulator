@@ -52,6 +52,7 @@ In a browser:
           return (r * 256 + g + b / 256) - 32768
         }
       },
+      debug: (msg) => { console.log(new Date().toISOString(), msg) },
     }).addTo(map);
 
     // advance shade by 1 hour
@@ -93,6 +94,7 @@ map.on('load', () => {
         return (r * 256 + g + b / 256) - 32768
       }
     },
+    debug: (msg) => { console.log(new Date().toISOString(), msg) },
   }).addTo(map);
 
   // advance shade by 1 hour
@@ -149,10 +151,28 @@ Mapbox Terrain-DEM v1 is a Mapbox-provided raster tileset is a global elevation 
 
 ```javascript
 {
-  tileSize: 256,
+  tileSize: 512,
   maxZoom: 15,
   getSourceUrl: ({x, y, z}) => {
+    const subdomain = ['a', 'b', 'c', 'd'][(x + y) % 4];
     return `https://${subdomain}.tiles.mapbox.com/raster/v1/mapbox.mapbox-terrain-dem-v1/${z}/${x}/${y}.webp?sku=101wuwGrczDtH&access_token=${MAPBOX_API_KEY}`;
+  },
+  getElevation: ({r, g, b, a}) => {
+    return -10000 + ((r * 256 * 256 + g * 256 + b) * .1);
+  }
+}
+```
+
+##### Maptiler Terrain RGB v2
+
+[More info](https://cloud.maptiler.com/tiles/terrain-rgb-v2/)
+
+```javascript
+{
+  tileSize: 256,
+  maxZoom: 12,
+  getSourceUrl: ({x, y, z}) => {
+    return `https://api.maptiler.com/tiles/terrain-rgb-v2/${z}/${x}/${y}.webp?key=${MAPTILER_KEY}`;
   },
   getElevation: ({r, g, b, a}) => {
     return -10000 + ((r * 256 * 256 + g * 256 + b) * .1);
@@ -169,7 +189,7 @@ Takes `map` as an argument and returns a GeoJSON collection of features whose sh
 ```javascript
 getFeatures: (map) => {
   const buildingData = map.querySourceFeatures('composite', { sourceLayer: 'building' }).filter((feature) => {
-    return feature.properties && feature.properties.underground !== "true" && feature.properties.render_height
+    return feature.properties && feature.properties.underground !== "true" && (feature.properties.height || feature.properties.render_height)
   });
   return buildingData;
 },
