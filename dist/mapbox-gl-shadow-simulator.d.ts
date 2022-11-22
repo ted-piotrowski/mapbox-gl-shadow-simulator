@@ -26,7 +26,7 @@ interface ShadeMapOptions {
     debug?: (msg: string) => void;
 }
 
-declare class export_default extends ShadeMap {
+declare class export_default {
     constructor(options: ShadeMapOptions);
     setDate(date: Date): this;
     setColor(color: string): this;
