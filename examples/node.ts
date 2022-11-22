@@ -1,6 +1,20 @@
 import Simulator from 'mapbox-gl-shadow-simulator';
 import { Map } from 'mapbox-gl';
 
+const mapLoaded = (map: Map) => {
+    return new Promise<void>((res, rej) => {
+        function cb() {
+            if (!map.loaded()) {
+                return;
+            }
+            map.off("render", cb);
+            res();
+        }
+        map.on("render", cb);
+        cb();
+    });
+};
+
 /* Mapbox setup */
 const accessToken = 'pk.eyJ1IjoidHBwaW90cm93c2tpIiwiYSI6ImNsNGVpdzMxYzAzenUzb28zYXZ4MXdlc2EifQ.M4IHx7SY0Wv5Zt6xzvKeBQ';
 const map = new Map({
@@ -28,7 +42,8 @@ map.on('load', () => {
             getSourceUrl: ({ x, y, z }) => `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`,
             getElevation: ({ r, g, b, a }) => (r * 256 + g + b / 256) - 32768,
         },
-        getFeatures: () => {
+        getFeatures: async () => {
+            await mapLoaded(map);
             const buildingData = map.querySourceFeatures('composite', { sourceLayer: 'building' }).filter((feature) => {
                 return feature.properties && feature.properties.underground !== "true" && (feature.properties.height || feature.properties.render_height)
             });
