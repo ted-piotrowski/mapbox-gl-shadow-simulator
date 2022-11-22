@@ -182,7 +182,7 @@ Mapbox Terrain-DEM v1 is a Mapbox-provided raster tileset is a global elevation 
 
 #### getFeatures
 
-Takes `map` as an argument and returns a GeoJSON collection of features whose shadows will be displayed on the map. Currently only supports `Polygon` and `MultiPolygon`.
+Returns a GeoJSON collection of features whose shadows will be displayed on the map. Currently only supports `Polygon` and `MultiPolygon`.
 
 ##### Extracting buildings from Mapbox vector tiles
 
