@@ -45,4 +45,4 @@ declare class export_default extends EventEmitter {
     addTo(map: Map): this;
 }
 
-export { export_default as default };
+export { export_default as default, ShadeMapOptions };

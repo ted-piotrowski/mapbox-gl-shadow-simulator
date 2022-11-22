@@ -188,6 +188,7 @@ Takes `map` as an argument and returns a GeoJSON collection of features whose sh
 
 ```javascript
 getFeatures: () => {
+  // wait for map.loaded() to ensure all vector tile data downloaded
   const buildingData = map.querySourceFeatures('composite', { sourceLayer: 'building' }).filter((feature) => {
     return feature.properties && feature.properties.underground !== "true" && (feature.properties.height || feature.properties.render_height)
   });
