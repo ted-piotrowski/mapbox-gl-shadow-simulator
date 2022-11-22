@@ -1,4 +1,4 @@
-import { MapboxGeoJSONFeature } from 'mapbox-gl';
+import { Map, MapboxGeoJSONFeature } from 'mapbox-gl';
 
 interface TerrainSource {
     maxZoom: number;
@@ -32,6 +32,7 @@ declare class export_default {
     setColor(color: string): this;
     setOpacity(opacity: number): this;
     readPixel(x: number, y: number): Uint8Array;
+    addTo(map: Map): this;
 }
 
 export { export_default as default };
