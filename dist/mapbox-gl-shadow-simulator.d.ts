@@ -1,5 +1,15 @@
 import { Map, MapboxGeoJSONFeature } from 'mapbox-gl';
 
+declare type Listener = (...args: any[]) => void;
+declare class EventEmitter {
+    private readonly events;
+    on(event: string, listener: Listener): () => void;
+    removeListener(event: string, listener: Listener): void;
+    removeAllListeners(): void;
+    emit(event: string, ...args: any[]): void;
+    once(event: string, listener: Listener): () => void;
+}
+
 interface TerrainSource {
     maxZoom: number;
     tileSize: number;
@@ -26,7 +36,7 @@ interface ShadeMapOptions {
     debug?: (msg: string) => void;
 }
 
-declare class export_default {
+declare class export_default extends EventEmitter {
     constructor(options: ShadeMapOptions);
     setDate(date: Date): this;
     setColor(color: string): this;
