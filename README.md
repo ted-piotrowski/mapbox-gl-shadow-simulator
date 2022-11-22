@@ -187,7 +187,7 @@ Takes `map` as an argument and returns a GeoJSON collection of features whose sh
 ##### Extracting buildings from Mapbox vector tiles
 
 ```javascript
-getFeatures: (map) => {
+getFeatures: () => {
   const buildingData = map.querySourceFeatures('composite', { sourceLayer: 'building' }).filter((feature) => {
     return feature.properties && feature.properties.underground !== "true" && (feature.properties.height || feature.properties.render_height)
   });
