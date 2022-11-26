@@ -7,6 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	<link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
 	<script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+	<script src='https://www.unpkg.com/suncalc@1.9.0/suncalc.js'></script>
 	<script src="../dist/mapbox-gl-shadow-simulator.umd.min.js"></script>
 	<style>
 		body {
@@ -35,6 +36,7 @@
 					<button id="increment">+1 hour</button>
 					<button id="play">Play</button>
 					<button id="stop">Stop</button>
+					<label><input id="exposure" type="checkbox" autocomplete="off" />24 hour sun exposure</label>
 					<button>
 						<a href="https://shademap.app/about" target="_blank">Get API key</a>
 					</button>
@@ -106,9 +108,9 @@
 		const decrement = document.getElementById('decrement');
 		const play = document.getElementById('play');
 		const stop = document.getElementById('stop');
+		const exposure = document.getElementById('exposure');
 
 		increment.addEventListener('click', () => {
-
 			now = new Date(now.getTime() + 3600000);
 			shadeMap && shadeMap.setDate(now);
 		}, false);
@@ -127,6 +129,24 @@
 
 		stop.addEventListener('click', () => {
 			clearInterval(intervalTimer);
+		})
+
+		exposure.addEventListener('click', (e) => {
+			clearInterval(intervalTimer);
+			const target = e.target;
+			if (!target.checked) {
+				shadeMap && shadeMap.setShowExposure(false);
+				increment.disabled = false;
+				decrement.disabled = false;
+				play.disabled = false;
+				stop.disabled = false;
+			} else {
+				shadeMap && shadeMap.setShowExposure(true);
+				increment.disabled = true
+				decrement.disabled = true;
+				play.disabled = true;
+				stop.disabled = true;
+			}
 		})
 		/* End controls setup */
 	</script>

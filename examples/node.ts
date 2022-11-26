@@ -59,12 +59,13 @@ map.on('load', () => {
 /* End ShadeMap setup */
 
 /* Controls setup */
-let intervalTimer;
+let intervalTimer: number;
 
-const increment = document.getElementById('increment') as HTMLElement;
-const decrement = document.getElementById('decrement') as HTMLElement;
-const play = document.getElementById('play') as HTMLElement;
-const stop = document.getElementById('stop') as HTMLElement;
+const increment = document.getElementById('increment') as HTMLButtonElement;
+const decrement = document.getElementById('decrement') as HTMLButtonElement;
+const play = document.getElementById('play') as HTMLButtonElement;
+const stop = document.getElementById('stop') as HTMLButtonElement;
+const exposure = document.getElementById('exposure') as HTMLInputElement;
 
 increment.addEventListener('click', () => {
 
@@ -86,5 +87,23 @@ play.addEventListener('click', () => {
 
 stop.addEventListener('click', () => {
     clearInterval(intervalTimer);
+});
+
+exposure.addEventListener('click', (e) => {
+    clearInterval(intervalTimer);
+    const target = e.target as HTMLInputElement;
+    if (!target.checked) {
+        shadeMap && shadeMap.setShowExposure(false);
+        increment.disabled = false;
+        decrement.disabled = false;
+        play.disabled = false;
+        stop.disabled = false;
+    } else {
+        shadeMap && shadeMap.setShowExposure(true);
+        increment.disabled = true
+        decrement.disabled = true;
+        play.disabled = true;
+        stop.disabled = true;
+    }
 })
 /* End controls setup */
