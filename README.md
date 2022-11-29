@@ -114,7 +114,7 @@ Property name | Type | Default value | Comment
 `date` | `Date` | `new Date()` | Sun's position in the sky is based on this date
 `color` | `String` | `#000` | 3 or 6 digit hexadecimal number
 `opacity` | `Number` | `0.3`
-`showExposure` | `Boolean` | `false` | Display 24 hour sun exposure data if set to true (**Note:** requires [suncalc](https://www.npmjs.com/package/suncalc))
+`showExposure` | `Boolean` | `false` | If set to true, display full-day sun exposure for `date` (**Note:** requires [suncalc](https://www.npmjs.com/package/suncalc))
 `terrainSource` | `Object` | See [terrainSource](#terrainsource) | Specify DEM or DSM tiles containing terrain elevation data
 `getFeatures` | `Function` | See [getFeatures](#getfeatures) | Returns GeoJSON of objects, such as buildings, to display on the map
 
@@ -199,10 +199,10 @@ getFeatures: () => {
 
 ### Available functions
 
-`setDate(date: Date)` - update shade layer to reflect new date
+`setDate(date: Date)` - update shade layer to reflect new `date`
 
 `setColor(color: String)` - change shade color
 
 `setOpacity(opacity: Number)` - change shade opacity
 
-`setShowExposure(show: Boolean)` - toggle between shade layer and 24 hour sun exposure (**Note:** requires [suncalc](https://www.npmjs.com/package/suncalc))
+`setShowExposure(show: Boolean)` - toggle between shadows and full-day sun exposure for `date` (**Note:** requires [suncalc](https://www.npmjs.com/package/suncalc))
