@@ -5,8 +5,8 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<link href='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.css' rel='stylesheet' />
-	<script src='https://api.mapbox.com/mapbox-gl-js/v2.7.0/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.css' rel='stylesheet' />
+	<script src='https://api.mapbox.com/mapbox-gl-js/v2.8.2/mapbox-gl.js'></script>
 	<script src='https://www.unpkg.com/suncalc@1.9.0/suncalc.js'></script>
 	<script src="../dist/mapbox-gl-shadow-simulator.umd.min.js"></script>
 	<style>
@@ -22,6 +22,25 @@
 		.mapbox-control-time {
 			padding: 20px;
 			background-color: white;
+		}
+
+		#exposure-gradient-container {
+			display: none;
+			background-color: white;
+			padding: 0 10px 5px;
+		}
+
+		#exposure-gradient {
+			height: 20px;
+			background-image: linear-gradient(to right, rgb(0 0 255/ 0.5), rgb(0 255 0 / 0.5), rgb(255 0 0 / 0.5));
+			display: flex;
+		}
+
+		#exposure-gradient>div {
+			flex: 1;
+			border: 1px solid white;
+			text-align: center;
+			font-weight: bold;
 		}
 	</style>
 	<title>Shade Map Mapbox example</title>
@@ -41,6 +60,10 @@
 						<a href="https://shademap.app/about" target="_blank">Get API key</a>
 					</button>
 					<span id="loader" style="padding: 3px;"></span>
+				</div>
+				<div id="exposure-gradient-container">
+					<div>Hours of sunlight</div>
+					<div id="exposure-gradient"></div>
 				</div>
 			</div>
 		</div>
@@ -109,6 +132,8 @@
 		const play = document.getElementById('play');
 		const stop = document.getElementById('stop');
 		const exposure = document.getElementById('exposure');
+		const exposureGradientContainer = document.getElementById('exposure-gradient-container');
+		const exposureGradient = document.getElementById('exposure-gradient');
 
 		increment.addEventListener('click', () => {
 			now = new Date(now.getTime() + 3600000);
@@ -140,12 +165,25 @@
 				decrement.disabled = false;
 				play.disabled = false;
 				stop.disabled = false;
+				exposureGradientContainer.style.display = 'none';
 			} else {
 				shadeMap && shadeMap.setShowExposure(true);
 				increment.disabled = true
 				decrement.disabled = true;
 				play.disabled = true;
 				stop.disabled = true;
+
+				const { lat, lng } = map.getCenter();
+				const { sunrise, sunset } = SunCalc.getTimes(now, lat, lng);
+				const hours = (sunset - sunrise) / 1000 / 3600;
+				const partial = hours - Math.floor(hours);
+				const html = [];
+				for (let i = 0; i < hours; i++) {
+					html.push(`<div>${i + 1}</div>`)
+				}
+				html.push(`<div style="flex: ${partial}"></div>`);
+				exposureGradientContainer.style.display = 'block';
+				exposureGradient.innerHTML = html.join('');
 			}
 		})
 		/* End controls setup */
