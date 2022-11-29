@@ -2,7 +2,7 @@
 
 Terrain, building and object shadow simulator for Mapbox JS and Maplibre JS. Display sunlight and shadow on a map for any date and time of year.
 
-[![Mapbox GL Shadow Simulator demo](/demo.gif)](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
+[![Mapbox GL Shadow Simulator demo](/demo.jpg)](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
 
 [Live Demo](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
 
