@@ -55,6 +55,9 @@ map.on('load', () => {
     shadeMap.on('tileloaded', (loadedTiles, totalTiles) => {
         loaderEl.innerText = `Loading: ${(loadedTiles / totalTiles * 100).toFixed(0)}%`;
     });
+
+    // sometime later
+    shadeMap.remove();
 });
 /* End ShadeMap setup */
 
