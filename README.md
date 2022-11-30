@@ -1,6 +1,7 @@
 # mapbox-gl-shadow-simulator
 
 Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and shadow on a map for any date and time of year.
+**NOTE:** Set the map's `maxPitch` to 45 degrees for performance reasons.
 
 [![Mapbox GL Shadow Simulator demo](/demo.jpg)](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
 

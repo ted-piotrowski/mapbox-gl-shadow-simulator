@@ -23,6 +23,7 @@ const map = new Map({
     center: { lng: -122.18578164139899, lat: 47.694878957368815 },
     zoom: 8, // starting zoom
     accessToken,
+    maxPitch: 45, // ShadeMap does not work with pitch > 45
 });
 /* End Mapbox setup */
 
