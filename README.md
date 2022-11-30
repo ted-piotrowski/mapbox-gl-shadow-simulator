@@ -206,3 +206,5 @@ getFeatures: () => {
 `setOpacity(opacity: Number)` - change shade opacity
 
 `setShowExposure(show: Boolean)` - toggle between shadows and full-day sun exposure for `date` (**Note:** requires [suncalc](https://www.npmjs.com/package/suncalc))
+
+`remove()` - remove the layer from the map

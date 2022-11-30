@@ -45,6 +45,7 @@ declare class export_default extends EventEmitter {
     setShowExposure(show: boolean): this;
     readPixel(x: number, y: number): Uint8Array;
     addTo(map: Map): this;
+    remove(): void;
 }
 
 export { export_default as default, ShadeMapOptions };
