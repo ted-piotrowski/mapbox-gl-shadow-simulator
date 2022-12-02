@@ -44,6 +44,7 @@ declare class export_default extends EventEmitter {
     setOpacity(opacity: number): this;
     setShowExposure(show: boolean): this;
     readPixel(x: number, y: number): Uint8Array;
+    getHoursOfSun(x: number, y: number): number;
     addTo(map: Map): this;
     remove(): void;
 }

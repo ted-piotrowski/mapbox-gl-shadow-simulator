@@ -209,4 +209,6 @@ getFeatures: () => {
 
 `setShowExposure(show: Boolean)` - toggle between shadows and full-day sun exposure for `date` (**Note:** requires [suncalc](https://www.npmjs.com/package/suncalc))
 
+`getHoursOfSun(x: Number, y: Number)` - if sun exposure mode enabled, returns the hours of sunlight for a given pixel on the map
+
 `remove()` - remove the layer from the map
