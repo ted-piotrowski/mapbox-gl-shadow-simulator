@@ -95,7 +95,7 @@
 
 		/* ShadeMap setup */
 		const loaderEl = document.getElementById('loader');
-		let now = new Date(1633358583454);
+		let now = new Date((SunCalc.getTimes(new Date(), 47.694878957368815, -122.18578164139899).sunrise).getTime() + 60 * 60 * 1000);
 		let shadeMap;
 		map.on('load', () => {
 			shadeMap = new ShadeMap({
