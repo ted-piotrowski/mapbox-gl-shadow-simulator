@@ -24,6 +24,7 @@ interface TerrainSource {
         b: number;
         a: number;
     }) => number;
+    _overzoom: number;
 }
 
 export interface SunExposureOptions {
