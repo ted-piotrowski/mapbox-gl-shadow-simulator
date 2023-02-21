@@ -165,7 +165,7 @@ Mapbox Terrain-DEM v1 is a Mapbox-provided raster tileset is a global elevation 
 
 ```javascript
 {
-  tileSize: 512,
+  tileSize: 514,
   maxZoom: 14,
   getSourceUrl: ({x, y, z}) => {
     const subdomain = ['a', 'b', 'c', 'd'][(x + y) % 4];
@@ -183,7 +183,7 @@ Mapbox Terrain-DEM v1 is a Mapbox-provided raster tileset is a global elevation 
 
 ```javascript
 {
-  tileSize: 512,
+  tileSize: 514,
   maxZoom: 12,
   getSourceUrl: ({x, y, z}) => {
     return `https://api.maptiler.com/tiles/terrain-rgb-v2/${z}/${x}/${y}.webp?key=${MAPTILER_KEY}`;
