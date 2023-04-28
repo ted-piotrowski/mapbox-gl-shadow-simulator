@@ -1,4 +1,4 @@
-import { Map, MapboxGeoJSONFeature } from 'mapbox-gl';
+import { LngLat, Map, MapboxGeoJSONFeature } from 'mapbox-gl';
 
 declare type Listener = (...args: any[]) => void;
 declare class EventEmitter {
@@ -59,10 +59,10 @@ declare class export_default extends EventEmitter {
     addTo(map: Map): this;
     remove(): void;
     _generateShadeProfile(params: {
-        pixels: number[];
+        locations: LngLat[];
         dates: Date[];
-        sunColor: string;
-        shadeColor: string;
+        sunColor: number[];
+        shadeColor: number[];
     }): Uint8Array;
 }
 
