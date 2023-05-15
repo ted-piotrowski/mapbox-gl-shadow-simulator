@@ -64,6 +64,13 @@ declare class export_default extends EventEmitter {
         sunColor: number[];
         shadeColor: number[];
     }): Uint8Array;
+    _generateLocationShadeProfile(params: {
+        locations: LngLat;
+	startDate: Date;
+	endDate: Date;
+        sunColor: number[];
+        shadeColor: number[];
+    }): { data: Uint8Array, width: number, height: number };
 }
 
 export { export_default as default, ShadeMapOptions };
