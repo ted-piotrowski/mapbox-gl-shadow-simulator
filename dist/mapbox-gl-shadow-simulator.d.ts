@@ -53,6 +53,7 @@ declare class export_default extends EventEmitter {
     setDate(date: Date): this;
     setColor(color: string): this;
     setOpacity(opacity: number): this;
+    setTerrainSource(terrainSource: TerrainSource): this;
     setSunExposure(enabled: boolean, options: SunExposureOptions): Promise<this>;
     readPixel(x: number, y: number): Uint8Array;
     getHoursOfSun(x: number, y: number): number;
