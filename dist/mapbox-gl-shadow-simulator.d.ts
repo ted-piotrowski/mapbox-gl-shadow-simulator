@@ -27,6 +27,14 @@ interface TerrainSource {
     _overzoom: number;
 }
 
+interface DSMSource {
+    data: Uint16Array;
+    bounds: [number[], number[]];
+    width: number;
+    height: number;
+    maxHeight: number;
+}
+
 export interface SunExposureOptions {
 	startDate: Date;
 	endDate: Date;
@@ -43,6 +51,7 @@ interface ShadeMapOptions {
     opacity?: number;
     sunExposure?: SunExposure;
     terrainSource?: TerrainSource;
+    dsmSource?: DSMSource;
     getFeatures?: () => Promise<MapboxGeoJSONFeature[]>;
     apiKey: string;
     debug?: (msg: string) => void;
@@ -54,6 +63,7 @@ declare class export_default extends EventEmitter {
     setColor(color: string): this;
     setOpacity(opacity: number): this;
     setTerrainSource(terrainSource: TerrainSource): this;
+    setDSMSource(dsmSource: DSMSource): this;
     setSunExposure(enabled: boolean, options: SunExposureOptions): Promise<this>;
     readPixel(x: number, y: number): Uint8Array;
     getHoursOfSun(x: number, y: number): number;
@@ -72,6 +82,17 @@ declare class export_default extends EventEmitter {
         sunColor: number[];
         shadeColor: number[];
     }): { data: Uint8Array, width: number, height: number };
+    toGeoTiff(): {
+        data: Uint8Array;
+        metadata: {
+            width: number;
+            height: number;
+            ModelTiepoint: any[];
+            ModelPixelScale: number[];
+            GeographicTypeGeoKey: number;
+            GeogCitationGeoKey: string;
+        };
+    } | undefined;
 }
 
 export { export_default as default, ShadeMapOptions };
