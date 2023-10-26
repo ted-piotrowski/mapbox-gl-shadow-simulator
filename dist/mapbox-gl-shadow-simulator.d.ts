@@ -28,8 +28,8 @@ interface TerrainSource {
 }
 
 interface DSMSource {
-    data: Uint16Array;
-    bounds: [number[], number[]];
+    data: Uint8ClampedArray;
+    bounds: [LngLat, LngLat];
     width: number;
     height: number;
     maxHeight: number;
@@ -92,7 +92,7 @@ declare class export_default extends EventEmitter {
             GeographicTypeGeoKey: number;
             GeogCitationGeoKey: string;
         };
-    } | undefined;
+    } | null;
 }
 
 export { export_default as default, ShadeMapOptions };
