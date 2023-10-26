@@ -1,4 +1,4 @@
-import { LngLat, Map, MapboxGeoJSONFeature } from 'mapbox-gl';
+import { LngLatLike, Map, MapboxGeoJSONFeature } from 'mapbox-gl';
 
 declare type Listener = (...args: any[]) => void;
 declare class EventEmitter {
@@ -29,7 +29,7 @@ interface TerrainSource {
 
 interface DSMSource {
     data: Uint8ClampedArray;
-    bounds: [LngLat, LngLat];
+    bounds: [LngLatLike, LngLatLike];
     width: number;
     height: number;
     maxHeight: number;
@@ -70,13 +70,13 @@ declare class export_default extends EventEmitter {
     addTo(map: Map): this;
     remove(): void;
     _generateShadeProfile(params: {
-        locations: LngLat[];
+        locations: LngLatLike[];
         dates: Date[];
         sunColor: number[];
         shadeColor: number[];
     }): Uint8Array;
     _generateLocationShadeProfile(params: {
-        locations: LngLat;
+        locations: LngLatLike;
 	startDate: Date;
 	endDate: Date;
         sunColor: number[];
