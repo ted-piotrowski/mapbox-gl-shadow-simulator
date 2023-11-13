@@ -3,6 +3,8 @@
   "version": "0.37.1",
   "description": "Display terrain and structure shadows cast by the sun in a custom style layer",
   "main": "dist/mapbox-gl-shadow-simulator.umd.min.js",
+  "browser": "dist/mapbox-gl-shadow-simulator.umd.min.js",
+  "module": "dist/mapbox-gl-shadow-simulator.esm.js",
   "types": "dist/mapbox-gl-shadow-simulator.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
