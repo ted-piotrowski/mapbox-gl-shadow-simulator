@@ -8,7 +8,7 @@
     <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css' />
     <script src='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js'></script>
     <script src='https://www.unpkg.com/suncalc@1.9.0/suncalc.js'></script>
-    <script src="https://unpkg.com/osmtogeojson/osmtogeojson.js"></script>
+    <script src='https://unpkg.com/protomaps-themes-base@2.0.0-alpha.5/dist/index.js'></script>
     <script src="../dist/mapbox-gl-shadow-simulator.umd.min.js"></script>
     <style>
         body {
@@ -86,7 +86,24 @@
         /* Maplibregl setup */
         const map = new maplibregl.Map({
             container: 'mapid',
-            style: 'https://demotiles.maplibre.org/style.json',
+            style: {
+                version: 8,
+                glyphs: 'https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf',
+                sources: {
+                    "protomaps": {
+                        type: "vector",
+                        tiles: [
+                            "https://cfw.shademap.app/20240207/{z}/{x}/{y}.pbf"
+                        ],
+                        //     url: "pmtiles://https://example.com/example.pmtiles",
+                        //     //       ^-- Remember to prefix the URL with pmtiles://
+                        attribution: '<a href="https://protomaps.com">Protomaps</a> © <a href="https://openstreetmap.org">OpenStreetMap</a>',
+                        maxzoom: 15,
+                    }
+                },
+                layers: protomaps_themes_base.default("protomaps", "light")
+            },
+            maplibreLogo: true,
             center: { lng: -122.18578164139899, lat: 47.694878957368815 },
             zoom: 8, // starting zoom
             hash: true,
@@ -112,30 +129,21 @@
                     _overzoom: 18,
                 },
                 getFeatures: async () => {
-                    try {
-                        if (map.getZoom() > 15) {
-                            const bounds = map.getBounds();
-                            const north = bounds.getNorth();
-                            const south = bounds.getSouth();
-                            const east = bounds.getEast();
-                            const west = bounds.getWest();
-                            const query = `https://overpass-api.de/api/interpreter?data=%2F*%0AThis%20has%20been%20generated%20by%20the%20overpass-turbo%20wizard.%0AThe%20original%20search%20was%3A%0A%E2%80%9Cbuilding%E2%80%9D%0A*%2F%0A%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B%0A%2F%2F%20gather%20results%0A%28%0A%20%20%2F%2F%20query%20part%20for%3A%20%E2%80%9Cbuilding%E2%80%9D%0A%20%20way%5B%22building%22%5D%28${south}%2C${west}%2C${north}%2C${east}%29%3B%0A%29%3B%0A%2F%2F%20print%20results%0Aout%20body%3B%0A%3E%3B%0Aout%20skel%20qt%3B`;
-                            const response = await fetch(query)
-                            const json = await response.json();
-                            const geojson = osmtogeojson(json);
-                            // If no building height, default to one storey of 3 meters
-                            geojson.features.forEach(feature => {
-                                if (!feature.properties) {
-                                    feature.properties = {};
-                                }
-                                if (!feature.properties.height) {
-                                    feature.properties.height = 3;
-                                }
-                            });
-                            return geojson.features;
-                        }
-                    } catch (e) {
-                        console.error(e);
+                    if (map.getZoom() >= 12) {
+                        await mapLoaded(map);
+                        const buildingData = map
+                            .querySourceFeatures("protomaps", { sourceLayer: "buildings" })
+
+                        // Protomaps tiles do not contain building heights so set all buildings to 3 levels (each level height = 3.1m) for now
+                        buildingData.forEach(feature => feature.properties.height = 3 * 3.1)
+
+                        // Buildings segments must be rasterized from bottom to top. If not, the base of a building
+                        // could rasterize over the top tower of the building
+                        buildingData.sort((a, b) => {
+                            return a.properties.height - b.properties.height;
+                        });
+                        return buildingData;
+
                     }
                     return [];
                 },
@@ -146,40 +154,6 @@
                 loaderEl.innerText = `Loading: ${(loadedTiles / totalTiles * 100).toFixed(0)}%`;
             });
         });
-
-        async function addExtrusion() {
-            try {
-                if (map.getZoom() > 15) {
-                    const bounds = map.getBounds();
-                    const north = bounds.getNorth();
-                    const south = bounds.getSouth();
-                    const east = bounds.getEast();
-                    const west = bounds.getWest();
-                    const query = `https://overpass-api.de/api/interpreter?data=%2F*%0AThis%20has%20been%20generated%20by%20the%20overpass-turbo%20wizard.%0AThe%20original%20search%20was%3A%0A%E2%80%9Cbuilding%E2%80%9D%0A*%2F%0A%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B%0A%2F%2F%20gather%20results%0A%28%0A%20%20%2F%2F%20query%20part%20for%3A%20%E2%80%9Cbuilding%E2%80%9D%0A%20%20way%5B%22building%22%5D%28${south}%2C${west}%2C${north}%2C${east}%29%3B%0A%29%3B%0A%2F%2F%20print%20results%0Aout%20body%3B%0A%3E%3B%0Aout%20skel%20qt%3B`;
-                    const response = await fetch(query)
-                    const json = await response.json();
-                    const geojson = osmtogeojson(json);
-                    // If no building height, default to one storey of 3 meters
-                    geojson.features.forEach(feature => {
-                        if (!feature.properties) {
-                            feature.properties = {};
-                        }
-                        if (!feature.properties.height) {
-                            feature.properties.height = 3;
-                        }
-                    });
-                    map.addSource('buildings3d', {
-                        type: 'geojson',
-                        data: geojson
-                    });
-                    map.addLayer('')
-                }
-            } catch (e) {
-                console.error(e);
-            }
-            return [];
-
-        }
         /* End ShadeMap setup */
 
         /* Controls setup */
