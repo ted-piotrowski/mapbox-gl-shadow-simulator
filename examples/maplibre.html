@@ -99,10 +99,6 @@
         let now = new Date((SunCalc.getTimes(new Date(), 47.694878957368815, -122.18578164139899).sunrise).getTime() + 60 * 60 * 1000);
         let shadeMap;
         map.on('load', () => {
-            map.addSource('composite', {
-                type: 'vector',
-                tiles: []
-            })
             shadeMap = new ShadeMap({
                 apiKey: "eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRwcGlvdHJvd3NraUBzaGFkZW1hcC5hcHAiLCJjcmVhdGVkIjoxNjYyNDkzMDY2Nzk0LCJpYXQiOjE2NjI0OTMwNjZ9.ovCrLTYsdKFTF6TW3DuODxCaAtGQ3qhcmqj3DWcol5g",
                 date: now,
@@ -150,6 +146,40 @@
                 loaderEl.innerText = `Loading: ${(loadedTiles / totalTiles * 100).toFixed(0)}%`;
             });
         });
+
+        async function addExtrusion() {
+            try {
+                if (map.getZoom() > 15) {
+                    const bounds = map.getBounds();
+                    const north = bounds.getNorth();
+                    const south = bounds.getSouth();
+                    const east = bounds.getEast();
+                    const west = bounds.getWest();
+                    const query = `https://overpass-api.de/api/interpreter?data=%2F*%0AThis%20has%20been%20generated%20by%20the%20overpass-turbo%20wizard.%0AThe%20original%20search%20was%3A%0A%E2%80%9Cbuilding%E2%80%9D%0A*%2F%0A%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B%0A%2F%2F%20gather%20results%0A%28%0A%20%20%2F%2F%20query%20part%20for%3A%20%E2%80%9Cbuilding%E2%80%9D%0A%20%20way%5B%22building%22%5D%28${south}%2C${west}%2C${north}%2C${east}%29%3B%0A%29%3B%0A%2F%2F%20print%20results%0Aout%20body%3B%0A%3E%3B%0Aout%20skel%20qt%3B`;
+                    const response = await fetch(query)
+                    const json = await response.json();
+                    const geojson = osmtogeojson(json);
+                    // If no building height, default to one storey of 3 meters
+                    geojson.features.forEach(feature => {
+                        if (!feature.properties) {
+                            feature.properties = {};
+                        }
+                        if (!feature.properties.height) {
+                            feature.properties.height = 3;
+                        }
+                    });
+                    map.addSource('buildings3d', {
+                        type: 'geojson',
+                        data: geojson
+                    });
+                    map.addLayer('')
+                }
+            } catch (e) {
+                console.error(e);
+            }
+            return [];
+
+        }
         /* End ShadeMap setup */
 
         /* Controls setup */
