@@ -134,8 +134,7 @@
                         const buildingData = map
                             .querySourceFeatures("protomaps", { sourceLayer: "buildings" })
 
-                        // Protomaps tiles do not contain building heights so set all buildings to 3 levels (each level height = 3.1m) for now
-                        buildingData.forEach(feature => feature.properties.height = 3 * 3.1)
+                        buildingData.forEach(feature => { feature.properties.height = feature.properties.height || 3.1 })
 
                         // Buildings segments must be rasterized from bottom to top. If not, the base of a building
                         // could rasterize over the top tower of the building
