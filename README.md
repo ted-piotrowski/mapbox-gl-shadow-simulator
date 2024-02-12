@@ -6,7 +6,7 @@ Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and sha
 
 [![Mapbox GL Shadow Simulator demo](/demo.jpg)](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
 
-[Live Demo](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
+[Mapbox GL JS Demo](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html) | [Maplibre GL Demo](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/maplibre.html) |
 
 ## Download
 
