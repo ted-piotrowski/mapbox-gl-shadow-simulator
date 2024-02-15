@@ -51,6 +51,7 @@ interface ShadeMapOptions {
     opacity?: number;
     sunExposure?: SunExposure;
     terrainSource?: TerrainSource;
+    belowCanopy?: boolean;
     dsmSource?: DSMSource;
     getFeatures?: () => Promise<MapboxGeoJSONFeature[]>;
     apiKey: string;
@@ -63,6 +64,7 @@ declare class export_default extends EventEmitter {
     setColor(color: string): this;
     setOpacity(opacity: number): this;
     setTerrainSource(terrainSource: TerrainSource): this;
+    setBelowCanopy(belowCanopy: boolean): this;
     setDSMSource(dsmSource: DSMSource): this;
     setSunExposure(enabled: boolean, options: SunExposureOptions): Promise<this>;
     readPixel(x: number, y: number): Uint8Array;
