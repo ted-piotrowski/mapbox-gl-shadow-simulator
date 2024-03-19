@@ -1,7 +1,7 @@
 /**
  * Copyright Ted Piotrowski 2024
  * Package: mapbox-gl-shadow-simulator
- * Version: 0.54.2
+ * Version: 0.54.3
  * For licensing visit: https://shademap.app/about/
  */
 

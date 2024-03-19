@@ -55,6 +55,7 @@ interface ShadeMapOptions {
     dsmSource?: DSMSource;
     getFeatures?: () => Promise<MapboxGeoJSONFeature[]>;
     apiKey: string;
+    getSize?: () => { width: number, height: number };
     debug?: (msg: string) => void;
 }
 
