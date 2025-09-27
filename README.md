@@ -221,7 +221,7 @@ shadeMap.on('idle', async () => {
 })
 ```
 
-[Mapbox GL JS Markers](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/markers.html) | [Maplibre GL Markers](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/maplibre-markers.html).
+[Mapbox GL JS Markers](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/markers.html) | [Maplibre GL Markers](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/markers-maplibre.html).
 
 ### Available functions
 
