@@ -1,10 +1,10 @@
 # mapbox-gl-shadow-simulator
 
-**Compatible with Mapbox GL JS Version 2.x** Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and shadow on a map for any date and time of year.
+**Compatible with Mapbox GL JS Version 2.x** Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and shadow on a map for any date and time of year
+
+[Mapbox GL JS Example](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html) | [Maplibre GL Example](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/maplibre.html).
 
 [![Mapbox GL Shadow Simulator demo](/demo.jpg)](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
-
-[Mapbox GL JS Demo](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html) | [Maplibre GL Demo](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/maplibre.html)
 
 ## Download
 
@@ -220,6 +220,8 @@ shadeMap.on('idle', async () => {
   console.log(`Position ${lat},${lng} is in ${inTheSun ? 'sun' : 'shade'}`);
 })
 ```
+
+[Mapbox GL JS Markers](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/markers.html) | [Maplibre GL Markers](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/maplibre-markers.html).
 
 ### Available functions
 
