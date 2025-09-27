@@ -47,7 +47,7 @@
       font-weight: bold;
     }
   </style>
-  <title>mapbox-gl-shadow-simulator Maplibre Example</title>
+  <title>mapbox-gl-shadow-simulator Maplibre Markers Example</title>
 </head>
 
 <body>
@@ -108,9 +108,7 @@
           },
           buildings: {
             type: "vector",
-            tiles: [
-              `https://cfw.shademap.app/buildings/{z}/{x}/{y}.mvt`,
-            ],
+            tiles: [`https://cfw.shademap.app/buildings/{z}/{x}/{y}.mvt`],
             minzoom: 14,
             maxzoom: 14,
           },
@@ -126,11 +124,25 @@
         ],
       },
       maplibreLogo: true,
-      center: { lng: -122.18578164139899, lat: 47.694878957368815 },
-      zoom: 8, // starting zoom
+      center: { lng: -122.15675711631776, lat: 47.75510439397995 },
+      zoom: 16, // starting zoom
       hash: true,
     });
     /* End Maplibregl setup */
+
+    /* Add markers for cafes */
+    const cafes = [
+      { lat: 47.75479062611596, lng: -122.15534138695534 },
+      { lat: 47.75337697202738, lng: -122.16319480178332 },
+      { lat: 47.751941595291726, lng: -122.15921456808333 },
+      { lat: 47.753477542718706, lng: -122.15083544800348 },
+      { lat: 47.754992309138885, lng: -122.15102829347933 },
+      { lat: 47.757776865447056, lng: -122.1563603726317 },
+    ];
+    const markers = cafes.map((coords) => {
+      return new maplibregl.Marker().setLngLat(coords).addTo(map);
+    });
+    /* End add markers for cafes */
 
     /* ShadeMap setup */
     const loaderEl = document.getElementById("loader");
@@ -188,6 +200,23 @@
           (loadedTiles / totalTiles) *
           100
         ).toFixed(0)}%`;
+      });
+
+      shadeMap.on("idle", async () => {
+        console.log('idle')
+        const promises = markers.map((marker) => {
+          const latlng = marker.getLngLat();
+          const { x, y } = map.project(latlng);
+          return shadeMap.isPositionInSun(x, y);
+        });
+        const results = await Promise.all(promises);
+        markers.forEach((marker, i) => {
+          const inTheSun = results[i] === true;
+          const element = marker.getElement();
+          const svg = element.getElementsByTagName("svg")[0];
+          const path = svg.getElementsByTagName("path")[0];
+          path.setAttribute("fill", inTheSun ? "#ffcc00" : "#ccf");
+        });
       });
     });
     /* End ShadeMap setup */

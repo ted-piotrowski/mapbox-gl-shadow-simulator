@@ -25,32 +25,8 @@
         padding: 20px;
         background-color: white;
       }
-
-      #exposure-gradient-container {
-        display: none;
-        background-color: white;
-        padding: 0 10px 5px;
-      }
-
-      #exposure-gradient {
-        height: 20px;
-        background-image: linear-gradient(
-          to right,
-          rgb(0 0 255/ 0.5),
-          rgb(0 255 0 / 0.5),
-          rgb(255 0 0 / 0.5)
-        );
-        display: flex;
-      }
-
-      #exposure-gradient > div {
-        flex: 1;
-        border: 1px solid white;
-        text-align: center;
-        font-weight: bold;
-      }
     </style>
-    <title>mapbox-gl-shadow-simulator Mapbox Example</title>
+    <title>mapbox-gl-shadow-simulator Mapbox Markers Example</title>
   </head>
 
   <body>
@@ -65,23 +41,12 @@
             <button id="increment">+1 hour</button>
             <button id="play">Play</button>
             <button id="stop">Stop</button>
-            <label
-              ><input
-                id="exposure"
-                type="checkbox"
-                autocomplete="off"
-              />Full-day sun exposure</label
-            >
             <button>
               <a href="https://shademap.app/about" target="_blank"
                 >Get API key</a
               >
             </button>
             <span id="loader" style="padding: 3px"></span>
-          </div>
-          <div id="exposure-gradient-container">
-            <div>Hours of sunlight</div>
-            <div id="exposure-gradient"></div>
           </div>
         </div>
       </div>
@@ -102,26 +67,33 @@
       };
       /* Mapbox setup */
       mapboxgl.accessToken =
-        "pk.eyJ1IjoidHBwaW90cm93c2tpIiwiYSI6ImNsNGVpdzMxYzAzenUzb28zYXZ4MXdlc2EifQ.M4IHx7SY0Wv5Zt6xzvKeBQ";
+        "pk.eyJ1IjoidHBwaW90cm93c2tpIiwiYSI6ImNrbGtkMXZtNTA3NmUydXJ5Z2xxNXExcmEifQ.Anj5VuaYC5d595Pde-Xp3w";
       const map = new mapboxgl.Map({
         container: "mapid",
         style: "mapbox://styles/mapbox/streets-v11",
-        center: { lng: -122.18578164139899, lat: 47.694878957368815 },
-        zoom: 8, // starting zoom
+        center: { lng: -122.15675711631776, lat: 47.75510439397995 },
+        zoom: 16, // starting zoom
         hash: true,
       });
       /* End Mapbox setup */
 
+      /* Add markers for cafes */
+      const cafes = [
+        { lat: 47.75479062611596, lng: -122.15534138695534 },
+        { lat: 47.75337697202738, lng: -122.16319480178332 },
+        { lat: 47.751941595291726, lng: -122.15921456808333 },
+        { lat: 47.753477542718706, lng: -122.15083544800348 },
+        { lat: 47.754992309138885, lng: -122.15102829347933 },
+        { lat: 47.757776865447056, lng: -122.1563603726317 },
+      ];
+      const markers = cafes.map((coords) => {
+        return new mapboxgl.Marker().setLngLat(coords).addTo(map);
+      });
+      /* End add markers for cafes */
+
       /* ShadeMap setup */
       const loaderEl = document.getElementById("loader");
-      let now = new Date(
-        SunCalc.getTimes(
-          new Date(),
-          47.694878957368815,
-          -122.18578164139899
-        ).sunrise.getTime() +
-          60 * 60 * 1000
-      );
+      let now = new Date(1633358583454);
       let shadeMap;
       map.on("load", () => {
         shadeMap = new ShadeMap({
@@ -163,6 +135,23 @@
             100
           ).toFixed(0)}%`;
         });
+
+        shadeMap.on("idle", async () => {
+          console.log("idle");
+          const promises = markers.map((marker) => {
+            const latlng = marker.getLngLat();
+            const { x, y } = map.project(latlng);
+            return shadeMap.isPositionInSun(x, y);
+          });
+          const results = await Promise.all(promises);
+          markers.forEach((marker, i) => {
+            const inTheSun = results[i] === true;
+            const element = marker.getElement();
+            const svg = element.getElementsByTagName("svg")[0];
+            const path = svg.getElementsByTagName("path")[0];
+            path.setAttribute("fill", inTheSun ? "#ffcc00" : "#ccf");
+          });
+        });
       });
       /* End ShadeMap setup */
 
@@ -173,11 +162,6 @@
       const decrement = document.getElementById("decrement");
       const play = document.getElementById("play");
       const stop = document.getElementById("stop");
-      const exposure = document.getElementById("exposure");
-      const exposureGradientContainer = document.getElementById(
-        "exposure-gradient-container"
-      );
-      const exposureGradient = document.getElementById("exposure-gradient");
 
       increment.addEventListener(
         "click",
@@ -206,41 +190,6 @@
 
       stop.addEventListener("click", () => {
         clearInterval(intervalTimer);
-      });
-
-      exposure.addEventListener("click", (e) => {
-        clearInterval(intervalTimer);
-        const target = e.target;
-        if (!target.checked) {
-          shadeMap && shadeMap.setSunExposure(false);
-          increment.disabled = false;
-          decrement.disabled = false;
-          play.disabled = false;
-          stop.disabled = false;
-          exposureGradientContainer.style.display = "none";
-        } else {
-          const { lat, lng } = map.getCenter();
-          const { sunrise, sunset } = SunCalc.getTimes(now, lat, lng);
-          shadeMap &&
-            shadeMap.setSunExposure(true, {
-              startDate: sunrise,
-              endDate: sunset,
-            });
-          increment.disabled = true;
-          decrement.disabled = true;
-          play.disabled = true;
-          stop.disabled = true;
-
-          const hours = (sunset - sunrise) / 1000 / 3600;
-          const partial = hours - Math.floor(hours);
-          const html = [];
-          for (let i = 0; i < hours; i++) {
-            html.push(`<div>${i + 1}</div>`);
-          }
-          html.push(`<div style="flex: ${partial}"></div>`);
-          exposureGradientContainer.style.display = "block";
-          exposureGradient.innerHTML = html.join("");
-        }
       });
       /* End controls setup */
     </script>

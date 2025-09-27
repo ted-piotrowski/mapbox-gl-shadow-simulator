@@ -1,6 +1,6 @@
 # mapbox-gl-shadow-simulator
 
-Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and shadow on a map for any date and time of year.
+**Compatible with Mapbox GL JS Version 2.x** Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and shadow on a map for any date and time of year.
 
 [![Mapbox GL Shadow Simulator demo](/demo.jpg)](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html)
 
@@ -208,6 +208,19 @@ getFeatures: () => {
 },
 ```
 
+### Check if location is in the sun or shade
+
+The shadow layer must render before you can check if a location is in the sun. You can make sure the shadow layer is rendered by listening for the `idle` event.
+
+```javascript
+shadeMap.on('idle', async () => {
+  const latlng =  [42.12, -121.74];
+  const { x, y } = map.latLngToContainerPoint(latlng);
+  const inTheSun = await shadeMap.isPositionInSun(x, y);
+  console.log(`Position ${lat},${lng} is in ${inTheSun ? 'sun' : 'shade'}`);
+})
+```
+
 ### Available functions
 
 `setDate(date: Date)` - update shade layer to reflect new `date`
@@ -221,3 +234,7 @@ getFeatures: () => {
 `getHoursOfSun(x: Number, y: Number)` - if sun exposure mode enabled, returns the hours of sunlight for a given pixel on the map
 
 `remove()` - remove the layer from the map
+
+`isPositionInSun(x: Number, y: Number)` - check if a position is in the sun
+
+`isPositionInShade(x: Number, y: Number)` - check if a position is in the shade

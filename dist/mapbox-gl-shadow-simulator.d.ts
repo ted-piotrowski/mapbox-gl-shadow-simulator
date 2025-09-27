@@ -66,10 +66,13 @@ declare class export_default extends EventEmitter {
     setOpacity(opacity: number): this;
     setTerrainSource(terrainSource: TerrainSource): this;
     setBelowCanopy(belowCanopy: boolean): this;
+    setCanopySource(canopySource: TerrainSource): this;
     setDSMSource(dsmSource: DSMSource): this;
     setSunExposure(enabled: boolean, options: SunExposureOptions): Promise<this>;
     readPixel(x: number, y: number): Uint8Array;
     getHoursOfSun(x: number, y: number): number;
+    isPositionInSun(x: number, y: number): Promise<boolean>;
+    isPositionInShade(x: number, y: number): Promise<boolean>;
     addTo(map: Map): this;
     remove(): void;
     _generateShadeProfile(params: {
