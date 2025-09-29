@@ -83,10 +83,12 @@ declare class export_default extends EventEmitter {
     }): Uint8Array;
     _generateLocationShadeProfile(params: {
         locations: LngLatLike;
-	startDate: Date;
-	endDate: Date;
+	    startDate: Date;
+	    endDate: Date;
         sunColor: number[];
         shadeColor: number[];
+        panelAltitude: number;
+        panelAzimuth: number;
     }): { data: Uint8Array, width: number, height: number };
     toGeoTiff(): {
         data: Uint8Array;
