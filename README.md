@@ -1,6 +1,6 @@
 # mapbox-gl-shadow-simulator
 
-**Compatible with Mapbox GL JS Version 2.x** Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and shadow on a map for any date and time of year
+**Currently works with Mapbox GL JS Version <= 3.5.2. Full compatibility coming soon** Shadow simulator for Mapbox GL JS and MapLibre GL JS. Visualize sunlight and shadow on a map for any date and time of year
 
 [Mapbox GL JS Example](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/map.html) | [Maplibre GL Example](https://ted-piotrowski.github.io/mapbox-gl-shadow-simulator/examples/maplibre.html).
 
