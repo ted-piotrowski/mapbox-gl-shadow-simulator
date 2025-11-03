@@ -108,7 +108,6 @@
             getSourceUrl: ({ x, y, z }) =>
               `https://s3.amazonaws.com/elevation-tiles-prod/terrarium/${z}/${x}/${y}.png`,
             getElevation: ({ r, g, b, a }) => r * 256 + g + b / 256 - 32768,
-            _overzoom: 18,
           },
           getFeatures: async () => {
             await mapLoaded(map);
