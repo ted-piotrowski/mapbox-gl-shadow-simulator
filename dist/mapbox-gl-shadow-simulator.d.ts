@@ -24,7 +24,7 @@ interface TerrainSource {
         b: number;
         a: number;
     }) => number;
-    _overzoom: number;
+    _overzoom?: number;
 }
 
 interface DSMSource {
