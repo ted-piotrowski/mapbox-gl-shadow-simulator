@@ -165,7 +165,7 @@
             });
 
             buildingData.forEach((feature) => {
-              feature.properties.height = feature.properties.height || 3.1;
+              feature.properties.height = (feature.properties.height / 10) || 3.1;
             });
 
             // Buildings segments must be rasterized from bottom to top. If not, the base of a building
