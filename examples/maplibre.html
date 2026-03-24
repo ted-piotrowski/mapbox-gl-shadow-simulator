@@ -108,8 +108,9 @@
           },
           buildings: {
             type: "vector",
+            encoding: "mlt",
             tiles: [
-              `https://cfw.shademap.app/buildings/{z}/{x}/{y}.mvt`,
+              `https://cfw.shademap.app/buildings/{z}/{x}/{y}.mlt`,
             ],
             minzoom: 14,
             maxzoom: 14,
@@ -165,7 +166,10 @@
             });
 
             buildingData.forEach((feature) => {
-              feature.properties.height = (feature.properties.height / 10) || 3.1;
+              if (!feature.properties.processed) {
+                feature.properties.height = (feature.properties.height / 10) || 3.1;
+                feature.properties.processed = true;
+              }
             });
 
             // Buildings segments must be rasterized from bottom to top. If not, the base of a building
